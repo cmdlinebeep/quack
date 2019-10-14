@@ -1,0 +1,82 @@
+/* Settings for responsive sidebar nav */
+/* Large screens, bump content over for sidenav */
+header, main, footer, .footer-chatbox {
+  padding-left: 300px;
+}
+
+/* Small and Medium screens */
+@media only screen and (max-width : 992px) {
+  header, main, footer, .footer-chatbox {
+    padding-left: 0;
+  }
+}
+
+/* For large screens, since nav icons are right aligned and now padded on the left 300px
+(to make room for mobile menu), need to put padding on right to bring them back into view. */
+#nav-mobile-large-only {
+  padding-right: 300px;
+}
+
+/* Fixed navbar
+https://materializecss.com/navbar.html */
+
+/* Copyright in the nav bar */
+.quack-copyright {
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+  height: 40px;
+  margin-top: 50px;
+}
+
+/* Menu button on mobile */
+.vertical-ellipsis:after {
+  content: '\2807';
+  font-size: 20px;
+}
+
+/* Message box stuff */
+
+/* For large screens, need to adjust the width since scooched over for the menu */
+form#msg_form { padding: 0px 5px 0px 5px; position: fixed; bottom: 0px; width: 100%; }
+form#msg_form input { border: 1px teal solid; padding: 0px; width: 63%; }
+form#msg_form button { width: 5%; background: #e57373; border: none; padding: 0px; }
+
+/* For smaller screens */
+@media only screen and (max-width : 992px) {
+  form#msg_form { padding: 0px 2px 0px 2px; position: fixed; bottom: 0px; width: 100%; }
+  form#msg_form input { border: 1px teal solid; padding: 0px; width: 82%; }
+  form#msg_form button { width: 15%; background: #e57373; border: none; padding: 0px; }
+}
+
+/* Make the messages div not able to be behind the message input footer at the bottom */
+div#message_window {
+  /* Can't use the height of the parent as a base to start with, since I don't explicitly set it!
+  The only units with explicit heights are the nav header and the message input footer.  So
+  instead of using 100% here, use 100vh, for viewport-height.  I made the chat window take the full
+  screen, minus 80px for the message footer.  However, the nav header is NOT in this same div that
+  takes content, and yet I have to account for it somehow.  Have found subtracting 64 for it 
+  is too much, and experimentally, 45 looks great across all form factors.  So 125 total.
+  https://css-tricks.com/fun-viewport-units/ */
+  /* max-height: calc(100vh - 80px - 64px); */
+  max-height: calc(100vh - 125px);
+
+  /* Make the content in the message boxes scroll if it goes past its container.  Otherwise can't see all messages */
+  overflow-y: scroll;
+  
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.footer-chatbox {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  /* border: 2px grey; */
+  border-top: 1px solid rgb(187, 187, 187);
+  background-color: white;
+  /* color: red; */
+  /* text-align: center; */
+}
