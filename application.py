@@ -130,8 +130,8 @@ def user_connected(data):
         join_room(pm_room)
         
         # print(f'{data["username"]} joined {pm_room}')
-
-        emit("list channels", {"channels": channels, "messages": private_messages[pm_room], "redraw_messages": "yes", "users": users}, broadcast=True)      # Also need to broadcast when a user joins, updates their Online Users list
+        # We don't want to broadcast here, or if we do, we leak messages to everyone!  We just want to redraw the messages for the user that joined.
+        emit("list channels", {"channels": channels, "messages": private_messages[pm_room], "redraw_messages": "yes", "users": users})
 
     # Not a private room
     else:
@@ -140,7 +140,13 @@ def user_connected(data):
 
         # Send user the list of channels available, as well as the selected channel
         # Need to redraw the messages in case they left the site then came back
-        emit("list channels", {"channels": channels, "messages": messages[data['selected_channel']], "redraw_messages": "yes", "users": users}, broadcast=True)     # Also need to broadcast when a user joins, updates their Online Users list
+        # Same, we don't want to broadcast or we redraw for everyone the messages even in a public channel, aren't the right channel!
+        emit("list channels", {"channels": channels, "messages": messages[data['selected_channel']], "redraw_messages": "yes", "users": users})
+
+    # And now for both cases...
+    # Yet we still do need to broadcast to everyone that a user has joined.  The solution is just another emit event.
+    # This time we broadcast to everybody, but we don't redraw the messages.
+    emit("list channels", {"channels": channels, "messages": [], "redraw_messages": "no", "users": users}, broadcast=True)
 
 
 @socketio.on('add channel')

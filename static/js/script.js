@@ -2,17 +2,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configuration when website loads
 
     // Set up the Sidenav elements
-    var nav_elems = document.querySelectorAll('.sidenav');
-    var nav_options = {
+    const nav_elems = document.querySelectorAll('.sidenav');
+    const nav_options = {
         inDuration: 350,
         outDuration: 350,
         edge: 'left'
     };
-    var nav_instances = M.Sidenav.init(nav_elems, nav_options);
+    const nav_instances = M.Sidenav.init(nav_elems, nav_options);
 
     // Connect to websocket (need to do first, as new user emits data to server).
     // Defaults to trying to connect to the host that serves the page.
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
     // Once connected...
     socket.on('connect', () => {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // and then grab_form_text_and_clear() in your button's onClick()
 
         // Send Message button
-        var send_btn = configure_form_button('message_input', 'send-button');
+        const send_btn = configure_form_button('message_input', 'send-button');
 
         // Attach an on-click event to the button here (keeps HTML cleaner)
         send_btn.onclick = () => {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Add Channel button
-        var add_channel_btn = configure_form_button('new_channel_name', 'add_channel_button');
+        const add_channel_btn = configure_form_button('new_channel_name', 'add_channel_button');
 
         // Attach an on-click event to the button here (keeps HTML cleaner)
         add_channel_btn.onclick = () => {
@@ -49,15 +49,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Look to see if user has been here before.  If not, pop up modal.
         if (!localStorage.getItem('username')) {
             // Set up Modals (there is only one)
-            var ModalElem = document.querySelector('#modal1');
-            var ModalOptions = {
+            const ModalElem = document.querySelector('#modal1');
+            const ModalOptions = {
                 dismissible: false
             }
-            var ModalInstance = M.Modal.init(ModalElem, ModalOptions);
+            const ModalInstance = M.Modal.init(ModalElem, ModalOptions);
             ModalInstance.open();
 
             // New Username button (inside modal)
-            var username_btn = configure_form_button('username-input', 'lets-chat-btn');
+            const username_btn = configure_form_button('username-input', 'lets-chat-btn');
 
             // Attach an on-click event to the button here (keeps HTML cleaner)
             username_btn.onclick = () => {
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Only do this if not already the same channel, reduces data loading
                 if (li.chn !== selected_channel) {
                     // Need to send the old channel (one we're changing away from) so that we can leave that room on the server
-                    var old_channel = selected_channel;
+                    const old_channel = selected_channel;
                     localStorage.setItem('selected_channel', li.chn);
                     localStorage.setItem('pm', 'no');
                     socket.emit('change channel', {'channel': li.chn, 'old_channel': old_channel, 'pm': 'no', 'username': localStorage.getItem('username')});
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Only do this if not already the same channel, reduces data loading
                 if (li.usr !== selected_channel) {
                     // Need to send the old channel (one we're changing away from) so that we can leave that room on the server
-                    var old_channel = selected_channel;
+                    const old_channel = selected_channel;
                     localStorage.setItem('selected_channel', li.usr);
                     localStorage.setItem('pm', 'yes');
                     socket.emit('change channel', {'channel': li.usr, 'old_channel': old_channel, 'pm': 'yes', 'username': localStorage.getItem('username')});
@@ -243,13 +243,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // DOM identifier for message list
         const msg_ul = document.querySelector('#messages');
 
-        msg = data['msg']
+        const msg = data['msg'];
         // console.log(msg);
         
         msg_ul.append(createLiFromMsg(msg));
 
         // Scroll to bottom
-        scroll_to_bottom()
+        scroll_to_bottom();
 
     } // end displayNewMessage()
 
@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // It also makes the button clicked if they hit enter (rather than clicking the button)
 
         // Disable by default unless something typed in.
-        var btn = document.querySelector('#' + btn_id);
+        const btn = document.querySelector('#' + btn_id);
         btn.disabled = true;
 
         document.querySelector('#' + form_id).onkeyup = (key) => {
@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight
 
         // This needs to be the element that has scroll properties, the div not the ul
-        var objDiv = document.getElementById("message_window");
+        const objDiv = document.getElementById("message_window");
         objDiv.scrollTop = objDiv.scrollHeight;
     }
     
