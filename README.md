@@ -18,7 +18,7 @@ done on the client side to reduce server load and enable scaling to larger audie
 ### http://quack-addicts.herokuapp.com/
 
 ## Video in action
-### <update link>
+### https://youtu.be/u77kgpxcbDY
 
 ## Helpful resources
 1. I decided to try a new CSS/HTML framework for this project, and chose Materialize for its responsiveness (to hit my mobile goal) and popularity. https://materializecss.com
