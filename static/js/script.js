@@ -3,9 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Simple script to keep my app always on!
     // Pings the app every 5 minutes
-    var http = require("http");
     setInterval(function() {
-        http.get("http://quack-addicts.herokuapp.com");
+        const request_app = new XMLHttpRequest();
+        request_app.open('GET', 'http://quack-addicts.herokuapp.com');
+        request_app.send( null );   // No data to attach
+        return false;
     }, 300000); // every 5 minutes (300000)
 
     // Set up the Sidenav elements
