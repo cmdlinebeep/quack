@@ -1,15 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Configuration when website loads
 
-    // Simple script to keep my app always on!
-    // Pings the app every 5 minutes
-    setInterval(function() {
-        const request_app = new XMLHttpRequest();
-        request_app.open('GET', 'http://quack-addicts.herokuapp.com');
-        request_app.send( null );   // No data to attach
-        return false;
-    }, 300000); // every 5 minutes (300000)
-
     // Set up the Sidenav elements
     const nav_elems = document.querySelectorAll('.sidenav');
     const nav_options = {
